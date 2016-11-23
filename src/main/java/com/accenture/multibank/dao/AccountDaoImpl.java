@@ -3,14 +3,14 @@ package com.accenture.multibank.dao;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.accenture.multibank.accounts.AbstractAccount;
+import com.accenture.multibank.accounts.AccountReadable;
 
-public class AccountDaoImpl implements AbstractDAO<Integer, AbstractAccount> {
+public class AccountDaoImpl implements AbstractDAO<Integer, AccountReadable> {
 
-	private Map<Integer, AbstractAccount> map = new HashMap<>();
+	private Map<Integer, AccountReadable> map = new HashMap<>();
 
 	@Override
-	public void save(AbstractAccount account) {
+	public void save(AccountReadable account) {
 		map.put(account.getAccountNumber(), account);
 	}
 
@@ -20,7 +20,7 @@ public class AccountDaoImpl implements AbstractDAO<Integer, AbstractAccount> {
 	}
 
 	@Override
-	public void update(AbstractAccount account) {
+	public void update(AccountReadable account) {
 		map.put(account.getAccountNumber(), account);
 	}
 
