@@ -4,6 +4,10 @@ import com.accenture.multibank.exceptions.UnbalancedSavingAccountException;
 
 public class SavingAccount extends AbstractAccount {
 
+	public SavingAccount(int accountNumber, int balance) {
+		super(accountNumber, balance);
+	}
+
 
 	public boolean verifyBookingCondition(int amount) throws UnbalancedSavingAccountException {
 		if (amount < 0 && Math.abs(amount) > this.getBalance())

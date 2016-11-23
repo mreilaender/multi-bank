@@ -5,7 +5,7 @@ package com.accenture.multibank.generator;
  * @version 11/23/16
  */
 public class SimpleAccountNumberGenerator implements AccountNumberGenerator {
-    private int accountNumber;
+	private int accountNumber = 0;
 
     public SimpleAccountNumberGenerator(int start) {
         this.accountNumber = start;

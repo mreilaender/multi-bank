@@ -12,7 +12,7 @@ public class AccountTest {
 	@Test
 	public void testBookingVerificationShouldThrowNoError() {
 
-		SavingAccount account = new SavingAccount();
+		SavingAccount account = new SavingAccount(1, 100);
 		int amount = 0;
 
 		account.verifyBookingCondition(amount);
@@ -21,7 +21,7 @@ public class AccountTest {
 
 	@Test(expected = UnbalancedSavingAccountException.class)
 	public void testBookingVerificationShouldThrowError() {
-		SavingAccount account = new SavingAccount();
+		SavingAccount account = new SavingAccount(1, 0);
 		int amount = -120;
 
 		account.verifyBookingCondition(amount);
@@ -30,7 +30,7 @@ public class AccountTest {
 
 	@Test
 	public void testCreditBookingVerificationShouldThrowNoError() {
-		CreditAccount account = new CreditAccount();
+		CreditAccount account = new CreditAccount(1, 0);
 		int amount = 0;
 
 		account.verifyBookingCondition(amount);
@@ -39,7 +39,7 @@ public class AccountTest {
 
 	@Test(expected = UnbalancedCreditAccountException.class)
 	public void testCreditBookingVerificationShouldThrowError() {
-		CreditAccount account = new CreditAccount();
+		CreditAccount account = new CreditAccount(2, 10);
 		int amount = -120;
 
 		account.verifyBookingCondition(amount);
