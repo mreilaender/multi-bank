@@ -21,4 +21,12 @@ public class CreditAccount extends AbstractAccount {
 
 	}
 
+	public int getCreditLine() {
+		return creditLine;
+	}
+
+	public void setCreditLine(int creditLine) {
+		this.creditLine = creditLine;
+	}
+
 }
