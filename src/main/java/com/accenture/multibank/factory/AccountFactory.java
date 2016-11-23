@@ -1,7 +1,7 @@
 package com.accenture.multibank.factory;
 
-import com.accenture.multibank.AccountModifiable;
-import com.accenture.multibank.AccountType;
+import com.accenture.multibank.accounts.AccountModifiable;
+import com.accenture.multibank.accounts.AccountType;
 import com.accenture.multibank.generator.AccountNumberGenerator;
 
 /**
