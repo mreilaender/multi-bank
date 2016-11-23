@@ -1,4 +1,4 @@
-package com.accenture.multibank;
+package com.accenture.multibank.accounts;
 
 public interface AccountModifiable extends AccountReadable {
 
