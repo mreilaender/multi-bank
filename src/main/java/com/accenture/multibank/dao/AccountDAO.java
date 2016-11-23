@@ -1,5 +1,7 @@
 package com.accenture.multibank.dao;
 
+import com.accenture.multibank.AccountReadable;
+
 /**
  * @author manuel
  * @version 11/23/16
