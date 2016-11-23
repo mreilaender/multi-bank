@@ -15,7 +15,7 @@ public class AccountDaoImpl implements AbstractDAO<Integer, AccountReadable> {
 	}
 
 	@Override
-	public void find(Integer accountNumber) {
+	public AccountReadable find(Integer accountNumber) {
 		map.get(accountNumber);
 	}
 
@@ -25,7 +25,7 @@ public class AccountDaoImpl implements AbstractDAO<Integer, AccountReadable> {
 	}
 
 	@Override
-	public void delete(Integer accountNumber) {
-		map.remove(accountNumber);
+	public AccountReadable delete(Integer accountNumber) {
+		return map.remove(accountNumber);
 	}
 }
