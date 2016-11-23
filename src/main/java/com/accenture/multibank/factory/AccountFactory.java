@@ -9,5 +9,5 @@ import com.accenture.multibank.generator.AccountNumberGenerator;
  * @version 11/23/16
  */
 public interface AccountFactory {
-    AccountModifiable createAccount(AccountNumberGenerator generator, AccountType accountType);
+	AccountModifiable createAccount(AccountNumberGenerator generator, AccountType accountType, int balance);
 }
