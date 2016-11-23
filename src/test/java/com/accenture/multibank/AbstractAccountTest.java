@@ -13,7 +13,7 @@ public class AbstractAccountTest {
 	public void testBookWithSavingAccount() {
 		int amount = 100;
 
-		AbstractAccount account = new SavingAccount();
+		AbstractAccount account = new SavingAccount(1, 50);
 		boolean result = account.book(amount);
 
 		Assert.assertEquals(true, result);
@@ -24,7 +24,7 @@ public class AbstractAccountTest {
 	public void testBookWithCreditAccount() {
 		int amount = 100;
 
-		AbstractAccount account = new CreditAccount();
+		AbstractAccount account = new CreditAccount(1, 50);
 		boolean result = account.book(amount);
 
 		Assert.assertEquals(true, result);
