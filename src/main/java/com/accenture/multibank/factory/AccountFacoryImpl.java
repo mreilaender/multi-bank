@@ -1,6 +1,5 @@
 package com.accenture.multibank.factory;
 
-import com.accenture.multibank.accounts.AbstractAccount;
 import com.accenture.multibank.accounts.AccountModifiable;
 import com.accenture.multibank.accounts.AccountType;
 import com.accenture.multibank.accounts.CreditAccount;
@@ -13,8 +12,10 @@ public class AccountFacoryImpl implements AccountFactory {
 
 		int accNum = generator.generateAccountNumber();
 
-		AbstractAccount acc;
+		AccountModifiable acc = null;
 		
+		// TODO try catch block -> throw exception if accounttype not available
+
 		switch (accountType) {
 		case SAVING:
 			acc = new SavingAccount(accNum, balance);
