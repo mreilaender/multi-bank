@@ -6,7 +6,7 @@ package com.accenture.multibank.dao;
  */
 public interface AbstractDAO<P, O> {
     void save(O o);
-    void find(P p);
+    O find(P p);
     void update(O o);
-    void delete(P p);
+    O delete(P p);
 }
