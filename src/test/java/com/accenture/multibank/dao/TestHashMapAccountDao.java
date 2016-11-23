@@ -7,10 +7,13 @@ import java.util.Map;
 
 import org.junit.Test;
 
+import com.accenture.multibank.accounts.AbstractAccount;
+import com.accenture.multibank.accounts.SavingAccount;
+
 public class TestHashMapAccountDao {
 
 	Map map = new HashMap();
-	AbstractAccount acc = new AbstractAccount();
+	AbstractAccount acc = new SavingAccount();
 
 	// zu testen: AccountImpl
 	AccountDaoImpl accDao = new AccountDaoImpl();
