@@ -1,35 +1,40 @@
 package com.accenture.multibank.dao;
 
 import static org.junit.Assert.assertEquals;
+import static org.mockito.Mockito.when;
 
-import java.util.HashMap;
-import java.util.Map;
-
+import com.accenture.multibank.accounts.AccountReadable;
+import com.accenture.multibank.generator.AccountNumberGenerator;
+import org.junit.Before;
 import org.junit.Test;
 
-import com.accenture.multibank.accounts.AbstractAccount;
 import com.accenture.multibank.accounts.SavingAccount;
+import org.mockito.Mock;
+import org.mockito.Mockito;
 
 public class TestHashMapAccountDao {
 
-	Map map = new HashMap();
-	AbstractAccount acc = new SavingAccount();
+	AbstractDAO<Integer, AccountReadable> accDao;
 
-	// zu testen: AccountImpl
-	AccountDaoImpl accDao = new AccountDaoImpl();
+	@Mock
+	AccountNumberGenerator generator;
 
+	@Before
+	public void setup() {
+		accDao = new AccountDaoImpl();
+		generator = Mockito.mock(AccountNumberGenerator.class);
+	}
 
 	@Test
 	public void testSafeAndFindAccount() {
-		
-		accDao.save(acc);
-		
-		accDao.find(acc.getAccountNumber());
-		
-		assertEquals(2, acc.getAccountNumber());
-		assertEquals(100, acc.getBalance());
-		
+		int accNr = 1;
+		when(generator.generateAccountNumber()).thenReturn(++accNr);
+		AccountReadable actual = new SavingAccount(accNr, 100);
+		accDao.save(actual);
 
+		AccountReadable expected = accDao.find(actual.getAccountNumber());
+
+		assertEquals(expected.getAccountNumber(), actual.getAccountNumber());
 	}
 
 
