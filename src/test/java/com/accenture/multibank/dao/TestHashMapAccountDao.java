@@ -9,9 +9,11 @@ import org.junit.Before;
 import org.junit.Test;
 
 import com.accenture.multibank.accounts.SavingAccount;
+import org.junit.runner.RunWith;
 import org.mockito.Mock;
-import org.mockito.Mockito;
+import org.mockito.runners.MockitoJUnitRunner;
 
+@RunWith(MockitoJUnitRunner.class)
 public class TestHashMapAccountDao {
 
 	AbstractDAO<Integer, AccountReadable> accDao;
@@ -22,7 +24,6 @@ public class TestHashMapAccountDao {
 	@Before
 	public void setup() {
 		accDao = new AccountDaoImpl();
-		generator = Mockito.mock(AccountNumberGenerator.class);
 	}
 
 	@Test
