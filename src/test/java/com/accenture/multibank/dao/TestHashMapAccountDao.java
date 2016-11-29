@@ -23,7 +23,7 @@ public class TestHashMapAccountDao {
 
 	@Before
 	public void setup() {
-		accDao = new AccountDaoImpl();
+		accDao = new HashMapAccountDAO();
 	}
 
 	@Test
