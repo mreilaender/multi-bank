@@ -4,7 +4,6 @@ import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.when;
 
 import com.accenture.multibank.accounts.AccountModifiable;
-import com.accenture.multibank.accounts.AccountReadable;
 import com.accenture.multibank.generator.AccountNumberGenerator;
 import org.junit.Before;
 import org.junit.Test;
@@ -35,7 +34,7 @@ public class TestHashMapAccountDao {
 		AccountModifiable actual = new SavingAccount(accNr, 100);
 		accDao.save(actual);
 
-		AccountReadable expected = accDao.find(actual.getAccountNumber());
+		AccountModifiable expected = accDao.find(actual.getAccountNumber());
 		assertEquals(expected, actual);
 	}
 
