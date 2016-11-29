@@ -28,10 +28,9 @@ public class TestSimpleAccountNumberGenerator {
 	}
 
     @SuppressWarnings("null")
-	@Test(expected = NullPointerException.class)
+    @Test(expected = NullPointerException.class)
     public void generateNumberWithNullStartValue() {
-		Integer startAccNr = null, timesGenerated = 10, accNum = startAccNr;
-		generator = new SimpleAccountNumberGenerator(startAccNr);
-		Integer expected = generator.generateAccountNumber();
+		generator = new SimpleAccountNumberGenerator(null);
+		generator.generateAccountNumber();
 	}
 }
