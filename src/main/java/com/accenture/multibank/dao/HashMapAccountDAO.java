@@ -21,7 +21,8 @@ public class HashMapAccountDAO implements AbstractDAO<Integer, AccountReadable> 
 
 	@Override
 	public void update(AccountReadable account) {
-		map.put(account.getAccountNumber(), account);
+		if (map.containsKey(account.getAccountNumber()))
+			map.put(account.getAccountNumber(), account);
 	}
 
 	@Override

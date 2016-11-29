@@ -1,5 +1,7 @@
 package com.accenture.multibank.accounts;
 
+import java.util.Objects;
+
 public abstract class AbstractAccount implements AccountModifiable {
 
 	private int balance;
@@ -36,4 +38,19 @@ public abstract class AbstractAccount implements AccountModifiable {
 		}
 	}
 
+	@Override
+	public int hashCode() {
+		return Objects.hash(accountNumber, balance);
+	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (o == this)
+			return true;
+		else if (o instanceof AbstractAccount || o == null)
+			return false;
+
+		AbstractAccount abstractAccount2 = (AbstractAccount)o;
+		return this.accountNumber == abstractAccount2.getAccountNumber();
+	}
 }

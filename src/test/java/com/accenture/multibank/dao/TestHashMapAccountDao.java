@@ -17,6 +17,7 @@ import org.mockito.runners.MockitoJUnitRunner;
 public class TestHashMapAccountDao {
 
 	AbstractDAO<Integer, AccountReadable> accDao;
+	int accNr;
 
 	@Mock
 	AccountNumberGenerator generator;
@@ -24,19 +25,44 @@ public class TestHashMapAccountDao {
 	@Before
 	public void setup() {
 		accDao = new HashMapAccountDAO();
+		accNr = 1;
+		when(generator.generateAccountNumber()).thenReturn(++accNr);
 	}
 
 	@Test
-	public void testSafeAndFindAccount() {
-		int accNr = 1;
-		when(generator.generateAccountNumber()).thenReturn(++accNr);
+	public void safeAndFindAccount() {
 		AccountReadable actual = new SavingAccount(accNr, 100);
 		accDao.save(actual);
 
 		AccountReadable expected = accDao.find(actual.getAccountNumber());
-
-		assertEquals(expected.getAccountNumber(), actual.getAccountNumber());
+		assertEquals(expected, actual);
 	}
 
+	@Test(expected = NullPointerException.class)
+	public void safeNullAccount() {
+		AccountReadable actual = null;
+		accDao.save(actual);
+	}
+
+	@Test()
+	public void findAccountThatDoesNotExist() {
+		AccountReadable actual = accDao.find(0);
+		assertEquals(null, actual);
+	}
+
+	@Test
+	public void deleteAccountThatDoesNotExist() {
+		AccountReadable accountReadable = accDao.delete(0);
+		assertEquals(null, accountReadable);
+	}
+
+	@Test
+	public void updateAccountThatDoesNotExist() {
+		AccountReadable tmp = new SavingAccount(generator.generateAccountNumber(), 0);
+		accDao.update(tmp);
+
+		AccountReadable actual = accDao.find(accNr);
+		assertEquals(null, actual);
+	}
 
 }
