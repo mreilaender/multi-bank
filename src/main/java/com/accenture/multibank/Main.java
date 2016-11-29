@@ -14,6 +14,9 @@ public class Main {
     public static void main(String[] args) {
         ApplicationContext context = new ClassPathXmlApplicationContext("beans.xml", "daos.xml");
         Bank bank = (Bank) context.getBean(RaiffeisenBank.class);
-        bank.createAccount(AccountType.CREDIT, 0);
+        Integer from = bank.createAccount(AccountType.SAVING, 1000),
+                to = bank.createAccount(AccountType.SAVING, 2000);
+
+        bank.transfer(from, to, 1001);
     }
 }
