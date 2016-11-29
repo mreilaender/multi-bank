@@ -3,6 +3,7 @@ package com.accenture.multibank.dao;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.when;
 
+import com.accenture.multibank.accounts.AccountModifiable;
 import com.accenture.multibank.accounts.AccountReadable;
 import com.accenture.multibank.generator.AccountNumberGenerator;
 import org.junit.Before;
@@ -16,7 +17,7 @@ import org.mockito.runners.MockitoJUnitRunner;
 @RunWith(MockitoJUnitRunner.class)
 public class TestHashMapAccountDao {
 
-	AbstractDAO<Integer, AccountReadable> accDao;
+	AbstractDAO<Integer, AccountModifiable> accDao;
 	int accNr;
 
 	@Mock
@@ -31,7 +32,7 @@ public class TestHashMapAccountDao {
 
 	@Test
 	public void safeAndFindAccount() {
-		AccountReadable actual = new SavingAccount(accNr, 100);
+		AccountModifiable actual = new SavingAccount(accNr, 100);
 		accDao.save(actual);
 
 		AccountReadable expected = accDao.find(actual.getAccountNumber());
@@ -40,28 +41,28 @@ public class TestHashMapAccountDao {
 
 	@Test(expected = NullPointerException.class)
 	public void safeNullAccount() {
-		AccountReadable actual = null;
+		AccountModifiable actual = null;
 		accDao.save(actual);
 	}
 
 	@Test()
 	public void findAccountThatDoesNotExist() {
-		AccountReadable actual = accDao.find(0);
+		AccountModifiable actual = accDao.find(0);
 		assertEquals(null, actual);
 	}
 
 	@Test
 	public void deleteAccountThatDoesNotExist() {
-		AccountReadable accountReadable = accDao.delete(0);
+		AccountModifiable accountReadable = accDao.delete(0);
 		assertEquals(null, accountReadable);
 	}
 
 	@Test
 	public void updateAccountThatDoesNotExist() {
-		AccountReadable tmp = new SavingAccount(generator.generateAccountNumber(), 0);
+		AccountModifiable tmp = new SavingAccount(generator.generateAccountNumber(), 0);
 		accDao.update(tmp);
 
-		AccountReadable actual = accDao.find(accNr);
+		AccountModifiable actual = accDao.find(accNr);
 		assertEquals(null, actual);
 	}
 
