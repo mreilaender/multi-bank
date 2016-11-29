@@ -1,5 +1,6 @@
 package com.accenture.multibank.accounts;
 
+import com.accenture.multibank.exceptions.UnbalancedCreditAccountException;
 import com.accenture.multibank.generator.AccountNumberGenerator;
 import org.junit.Assert;
 import org.junit.Before;
@@ -27,13 +28,22 @@ public class TestCreditAccount {
         when(accountNumberGenerator.generateAccountNumber()).thenReturn(++accNr);
     }
 
-    @Test
+    @Test(expected = UnbalancedCreditAccountException.class)
     public void amountToBeBookedGreaterThanCreditLine() throws Exception {
-        int amountToBeBooked = 200, creditLine = 100, balance = 0;
+        int amountToBeBooked = -200, creditLine = 100, balance = 0;
+        CreditAccount creditAccount = new CreditAccount(accountNumberGenerator.generateAccountNumber(), balance);
+            creditAccount.setCreditLine(creditLine);
+        creditAccount.verifyBookingCondition(amountToBeBooked);
+    }
+
+    @Test
+    public void amountDoBeBookedLessThanCreditLine() throws Exception {
+        int amountToBeBooked = 200, creditLine = 300, balance = 0;
         CreditAccount creditAccount = new CreditAccount(accountNumberGenerator.generateAccountNumber(), balance);
         creditAccount.setCreditLine(creditLine);
-        boolean actual = creditAccount.verifyBookingCondition(amountToBeBooked),
-                expected = false;
+        boolean actual = creditAccount.book(amountToBeBooked),
+                expected = true;
+
         Assert.assertEquals(expected, actual);
     }
 }
