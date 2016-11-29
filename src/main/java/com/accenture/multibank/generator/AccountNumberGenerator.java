@@ -5,5 +5,5 @@ package com.accenture.multibank.generator;
  * @version 11/23/16
  */
 public interface AccountNumberGenerator {
-    int generateAccountNumber();
+    Integer generateAccountNumber();
 }

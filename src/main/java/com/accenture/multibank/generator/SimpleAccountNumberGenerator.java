@@ -15,7 +15,7 @@ public class SimpleAccountNumberGenerator implements AccountNumberGenerator {
      * Increases the accountNumber by 1 and returns it
      * @return accountNumber increased by 1
      */
-    public int generateAccountNumber() {
+    public Integer generateAccountNumber() {
         return ++accountNumber;
     }
 }
