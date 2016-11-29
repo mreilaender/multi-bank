@@ -32,13 +32,18 @@ public class RaiffeisenBank implements Bank {
     }
 
     @Override
-    public boolean transfer(Integer from, Integer to, int amount) {
-        return false;
+    public boolean transfer(Integer accNrFrom, Integer accNrTo, int amount) {
+        AccountModifiable from = accountDAO.find(accNrFrom),
+                to = accountDAO.find(accNrTo);
+        from.book(-amount);
+        to.book(amount);
+        return true;
     }
 
     @Override
     public Integer createAccount(AccountType type, int balance) {
-        AccountReadable newAccount = accountFactory.createAccount(accountNumberGenerator, type, balance);
+        AccountModifiable newAccount = accountFactory.createAccount(accountNumberGenerator, type, balance);
+        accountDAO.save(newAccount);
         return newAccount.getAccountNumber();
     }
 
