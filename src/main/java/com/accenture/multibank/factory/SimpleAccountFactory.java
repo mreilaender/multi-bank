@@ -17,6 +17,11 @@ public class SimpleAccountFactory implements AccountFactory {
 	 * @return
 	 */
 	public AccountModifiable createAccount(AccountNumberGenerator generator, AccountType accountType, int balance) throws OperationNotSupportedException {
+		if (generator == null)
+			throw new NullPointerException("Generator can't be null");
+		if (accountType == null)
+			throw new NullPointerException("Account type not specified");
+
 		int accNum = generator.generateAccountNumber();
 		AccountModifiable acc = null;
 
