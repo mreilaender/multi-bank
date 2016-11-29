@@ -3,30 +3,30 @@ package com.accenture.multibank.dao;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.accenture.multibank.accounts.AccountReadable;
+import com.accenture.multibank.accounts.AccountModifiable;
 
-public class HashMapAccountDAO implements AbstractDAO<Integer, AccountReadable> {
+public class HashMapAccountDAO implements AbstractDAO<Integer, AccountModifiable> {
 
-	private Map<Integer, AccountReadable> map = new HashMap<>();
+	private Map<Integer, AccountModifiable> map = new HashMap<>();
 
 	@Override
-	public void save(AccountReadable account) {
+	public void save(AccountModifiable account) {
 		map.put(account.getAccountNumber(), account);
 	}
 
 	@Override
-	public AccountReadable find(Integer accountNumber) {
+	public AccountModifiable find(Integer accountNumber) {
 		return map.get(accountNumber);
 	}
 
 	@Override
-	public void update(AccountReadable account) {
+	public void update(AccountModifiable account) {
 		if (map.containsKey(account.getAccountNumber()))
 			map.put(account.getAccountNumber(), account);
 	}
 
 	@Override
-	public AccountReadable delete(Integer accountNumber) {
+	public AccountModifiable delete(Integer accountNumber) {
 		return map.remove(accountNumber);
 	}
 }
