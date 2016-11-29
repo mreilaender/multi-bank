@@ -7,7 +7,7 @@ public abstract class AbstractAccount implements AccountModifiable {
 	private int balance;
 	private int accountNumber;
 
-	public AbstractAccount(int acountNumber, int balance) {
+	public AbstractAccount(int accountNumber, int balance) {
 		this.accountNumber = accountNumber;
 		this.balance = balance;
 	}
