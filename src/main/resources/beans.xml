@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <import resource="daos.xml"/>
+    <import resource="generators.xml"/>
+    <import resource="factories.xml"/>
+
+    <bean id="raiffeisenBank" class="com.accenture.multibank.bank.RaiffeisenBank">
+        <property name="accountDAO" ref="hashMapAccountDAO"/>
+        <property name="accountNumberGenerator" ref="simpleAccountNumberGenerator"/>
+        <property name="accountFactory" ref="simpleAccountFactory"/>
+    </bean>
+</beans>
