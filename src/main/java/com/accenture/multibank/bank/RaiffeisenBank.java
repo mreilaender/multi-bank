@@ -1,7 +1,6 @@
 package com.accenture.multibank.bank;
 
 import com.accenture.multibank.accounts.AccountModifiable;
-import com.accenture.multibank.accounts.AccountReadable;
 import com.accenture.multibank.accounts.AccountType;
 import com.accenture.multibank.dao.AbstractDAO;
 import com.accenture.multibank.exceptions.AccountNotFoundException;
@@ -19,16 +18,17 @@ public class RaiffeisenBank implements Bank {
 
     @Override
     public boolean withdraw(Integer accNr, int amount) {
-        AccountModifiable accountModifiable = accountDAO.find(accNr);
-        if (accountModifiable == null)
-            throw new AccountNotFoundException("Account could not be found");
-        accountModifiable.book(-amount);
-        return true;
+        if (amount < 0)
+            return false;
+        return deposit(accNr, -amount);
     }
 
     @Override
-    public boolean deposit(Integer account, int amount) {
-        return false;
+    public boolean deposit(Integer accNr, int amount) {
+        AccountModifiable accountModifiable = accountDAO.find(accNr);
+        if (accountModifiable == null)
+            throw new AccountNotFoundException("Account could not be found");
+        return accountModifiable.book(amount);
     }
 
     @Override
