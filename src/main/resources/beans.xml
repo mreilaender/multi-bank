@@ -12,4 +12,9 @@
         <property name="accountNumberGenerator" ref="simpleAccountNumberGenerator"/>
         <property name="accountFactory" ref="simpleAccountFactory"/>
     </bean>
+    
+    <bean id="test" class="com.accenture.multibank.controller.TestController">
+        <property name="bank" ref="raiffeisenBank"/>
+    </bean>
+    
 </beans>
