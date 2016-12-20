@@ -4,7 +4,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.accenture.multibank.accounts.AccountModifiable;
+import org.springframework.stereotype.Service;
 
+@Service
 public class HashMapAccountDAO implements AbstractDAO<Integer, AccountModifiable> {
 
 	private Map<Integer, AccountModifiable> map = new HashMap<>();
