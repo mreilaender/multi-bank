@@ -10,6 +10,7 @@ buildscript {
 apply plugin: 'java'
 apply plugin: 'idea'
 apply plugin: 'eu.appsatori.fatjar'
+apply plugin: 'maven'
 
 group 'random-group-generator'
 version '1.0'
@@ -44,7 +45,7 @@ dependencies {
     // https://mvnrepository.com/artifact/mysql/mysql-connector-java
     compile group: 'mysql', name: 'mysql-connector-java', version: '6.0.5'
     // http://docs.spring.io/spring-boot/docs/current/reference/html/using-boot-devtools.html
-    compile("org.springframework.boot:spring-boot-devtools")
+    runtime("org.springframework.boot:spring-boot-devtools")
     // http://logging.apache.org/log4j/2.0/maven-artifacts.html
     compile group: 'org.apache.logging.log4j', name: 'log4j-api', version: '2.7'
     compile group: 'org.apache.logging.log4j', name: 'log4j-core', version: '2.7'

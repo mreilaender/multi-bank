@@ -1,5 +1,6 @@
 package com.accenture.multibank.bank;
 
+import com.accenture.multibank.accounts.AccountType;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
