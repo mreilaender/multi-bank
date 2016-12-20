@@ -1,12 +1,9 @@
 package com.accenture.multibank.entities;
 
-import javax.persistence.Entity;
-
 /**
  * @author manuel
  * @version 12/20/16
  */
-@Entity
 public class Transaction {
 
     private Integer from;
