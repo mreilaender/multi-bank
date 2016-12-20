@@ -5,6 +5,7 @@ import com.accenture.multibank.bank.Bank;
 import com.accenture.multibank.entities.Status;
 import com.accenture.multibank.entities.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @version 12/20/16
  */
 @RequestMapping("/atm")
+@EnableAspectJAutoProxy
 @RestController
 public class BankController {
     private final Bank bank;
