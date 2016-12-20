@@ -1,9 +1,12 @@
 package com.accenture.multibank.generator;
 
+import org.springframework.stereotype.Service;
+
 /**
  * @author manuel
  * @version 11/23/16
  */
+@Service
 public class SimpleAccountNumberGenerator implements AccountNumberGenerator {
 	private Integer accountNumber;
 
