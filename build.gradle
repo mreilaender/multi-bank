@@ -43,5 +43,10 @@ dependencies {
     compile group: 'org.springframework.boot', name: 'spring-boot-starter-data-jpa', version: '1.4.2.RELEASE'
     // https://mvnrepository.com/artifact/mysql/mysql-connector-java
     compile group: 'mysql', name: 'mysql-connector-java', version: '6.0.5'
+    // http://docs.spring.io/spring-boot/docs/current/reference/html/using-boot-devtools.html
+    compile("org.springframework.boot:spring-boot-devtools")
+    // http://logging.apache.org/log4j/2.0/maven-artifacts.html
+    compile group: 'org.apache.logging.log4j', name: 'log4j-api', version: '2.7'
+    compile group: 'org.apache.logging.log4j', name: 'log4j-core', version: '2.7'
 
 }
