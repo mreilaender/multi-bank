@@ -1,9 +1,8 @@
 package com.accenture.multibank.controller;
 
-import com.accenture.multibank.accounts.AccountType;
-import com.accenture.multibank.bank.Bank;
-import com.accenture.multibank.entities.Status;
-import com.accenture.multibank.entities.Transaction;
+import static org.springframework.web.bind.annotation.RequestMethod.POST;
+import static org.springframework.web.bind.annotation.RequestMethod.PUT;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
@@ -11,8 +10,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import static org.springframework.web.bind.annotation.RequestMethod.POST;
-import static org.springframework.web.bind.annotation.RequestMethod.PUT;
+import com.accenture.multibank.accounts.AccountType;
+import com.accenture.multibank.bank.Bank;
+import com.accenture.multibank.entities.Status;
+import com.accenture.multibank.entities.Transaction;
 /**
  * @author manuel
  * @version 12/20/16
@@ -35,13 +36,17 @@ public class BankController {
 
     @RequestMapping(method = PUT)
     public Transaction book(Transaction transaction) {
-        if (transaction.getTo() == null)
+		String fromWithoutPrefix = transaction.getFrom().substring(1);
+		String toWithoutPrefix = transaction.getFrom().substring(1);
+
+		if (transaction.getTo() == null)
             if (transaction.getAmount() > 0)
-                bank.deposit(transaction.getFrom(), transaction.getAmount());
+				bank.deposit(Integer.parseInt(fromWithoutPrefix), transaction.getAmount());
             else
-                bank.withdraw(transaction.getFrom(), transaction.getAmount());
+				bank.withdraw(Integer.parseInt(fromWithoutPrefix), transaction.getAmount());
         else
-            bank.transfer(transaction.getFrom(), transaction.getTo(), transaction.getAmount());
+			bank.transfer(Integer.parseInt(fromWithoutPrefix), Integer.parseInt(toWithoutPrefix),
+					transaction.getAmount());
         transaction.setStatus(Status.FINISHED);
         return transaction;
     }

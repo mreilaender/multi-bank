@@ -6,26 +6,26 @@ package com.accenture.multibank.entities;
  */
 public class Transaction {
 
-    private Integer from;
-    private Integer to;
+	private String from;
+	private String to;
     private int amount;
     private Status status;
 
     public Transaction() {
     }
 
-    public Transaction(Integer from, Integer to, int amount) {
+	public Transaction(String from, String to, int amount) {
         this.from = from;
         this.to = to;
         this.amount = amount;
         this.status = Status.IN_PROCESS;
     }
 
-    public Integer getFrom() {
+	public String getFrom() {
         return from;
     }
 
-    public Integer getTo() {
+	public String getTo() {
         return to;
     }
 
