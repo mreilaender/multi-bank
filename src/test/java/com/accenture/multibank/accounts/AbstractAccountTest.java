@@ -10,9 +10,10 @@ public class AbstractAccountTest {
 		int amount = 100;
 
 		AbstractAccount account = new SavingAccount(1, 50);
-		boolean result = account.book(amount);
+		AccountReadable result = account.book(amount);
 
-		Assert.assertEquals(true, result);
+		Assert.assertEquals(account, result);
+		Assert.assertEquals(result.getBalance(), 150);
 
 	}
 
@@ -21,10 +22,10 @@ public class AbstractAccountTest {
 		int amount = 100;
 
 		AbstractAccount account = new CreditAccount(1, 50);
-		boolean result = account.book(amount);
+		AccountReadable result = account.book(amount);
 
-		Assert.assertEquals(true, result);
-
+		Assert.assertEquals(account, result);
+		Assert.assertEquals(result.getBalance(), 150);
 }
 
 }

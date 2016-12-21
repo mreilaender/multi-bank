@@ -1,7 +1,7 @@
 package com.accenture.multibank.accounts;
 
-import com.accenture.multibank.exceptions.UnbalancedCreditAccountException;
-import com.accenture.multibank.generator.AccountNumberGenerator;
+import static org.mockito.Mockito.when;
+
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -9,7 +9,8 @@ import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
-import static org.mockito.Mockito.when;
+import com.accenture.multibank.exceptions.UnbalancedCreditAccountException;
+import com.accenture.multibank.generator.AccountNumberGenerator;
 
 /**
  * @author manuel
@@ -41,9 +42,9 @@ public class TestCreditAccount {
         int amountToBeBooked = 200, creditLine = 300, balance = 0;
         CreditAccount creditAccount = new CreditAccount(accountNumberGenerator.generateAccountNumber(), balance);
         creditAccount.setCreditLine(creditLine);
-        boolean actual = creditAccount.book(amountToBeBooked),
-                expected = true;
+		AccountReadable actual = creditAccount.book(amountToBeBooked);
 
-        Assert.assertEquals(expected, actual);
+		Assert.assertEquals(creditAccount, actual);
+		Assert.assertEquals(200, actual.getBalance());
     }
 }
