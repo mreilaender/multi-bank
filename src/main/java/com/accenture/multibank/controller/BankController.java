@@ -31,7 +31,7 @@ public class BankController {
 	public String createAccount(@PathVariable AccountType type) {
 		// TODO: int + Prefix = String
 		String newAccountNr = new String();
-		newAccountNr = bank.createAccount(type, 0).toString();
+		newAccountNr = "bank.createAccount(type, 0).getAccountNumber()";
 		return newAccountNr;
     }
 
