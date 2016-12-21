@@ -16,6 +16,7 @@ import com.accenture.multibank.entities.Transaction;
 public class ChooseBankAspect {
 
 	BankSelector bankSelector = new BankSelector();
+	RemoteBankFacade remotebank;
 
 	@Around("execution(* com.accenture.multibank.controller.BankController.book(..))")
 	public Object determineBank(ProceedingJoinPoint joinPoint) throws Throwable {
@@ -41,6 +42,7 @@ public class ChooseBankAspect {
 		if (bankSelector.isLocal(prefixFrom, prefixTo))
 			result = joinPoint.proceed();
 		else { // schnittstelle
+				// remoteBank.booking(trans);
 		}
 		
 		return result;
