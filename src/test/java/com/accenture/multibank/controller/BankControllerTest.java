@@ -1,28 +1,39 @@
 package com.accenture.multibank.controller;
 
-import com.accenture.multibank.Main;
-import com.accenture.multibank.accounts.AccountType;
-import com.accenture.multibank.bank.Bank;
-import com.accenture.multibank.entities.Transaction;
-import org.junit.Assert;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-@SpringBootTest(classes = { Main.class })
-@RunWith(SpringJUnit4ClassRunner.class)
+import org.junit.Assert;
+import org.junit.Before;
+import org.junit.Test;
+
+import com.accenture.multibank.accounts.AccountReadable;
+import com.accenture.multibank.accounts.AccountType;
+import com.accenture.multibank.accounts.SavingAccount;
+import com.accenture.multibank.bank.Bank;
+import com.accenture.multibank.entities.Transaction;
+
+//@SpringBootTest(classes = { Main.class })
+//@RunWith(SpringJUnit4ClassRunner.class)
 public class BankControllerTest {
 
-	@MockBean
+	// @MockBean
+	// AbstractDAO<Integer, AccountModifiable> accountDAO;
+
+	// @MockBean
+	// Bank bank;
+
+	BankController bankController;
 	Bank bank;
 
-	@Autowired
-	BankController bankController;
+	@Before
+	public void test() {
+		bank = mock(Bank.class);
+		bankController = new BankController(bank);
+	}
+
+
 
 
 	@Test
@@ -32,14 +43,20 @@ public class BankControllerTest {
 	}
 
 	@Test
-	public void testbook() throws Exception {
-		when(bank.createAccount(AccountType.SAVING, 200)).thenReturn(1234);
+	public void testbookWithdraw() throws Exception {
+		int accountNumber = 1234;
+		int outBalance = 100;
+		int amount = 100;
 
-		int Accnr1 = bank.createAccount(AccountType.SAVING, 200);
-		String extreneAccNr = "Y" + Accnr1;
-		Transaction transaction = new Transaction(extreneAccNr, null, 100);
+		String externeAccNr = "Y" + accountNumber;
+		Transaction transaction = new Transaction(externeAccNr, null, amount);
+		AccountReadable account = new SavingAccount(accountNumber, outBalance);
+
+		when(bank.withdraw(accountNumber, amount)).thenReturn(account);
 
 		bankController.book(transaction);
+
+		verify(bank).withdraw(accountNumber, amount);
 	}
 
 
