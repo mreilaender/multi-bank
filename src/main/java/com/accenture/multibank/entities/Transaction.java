@@ -21,11 +21,11 @@ public class Transaction {
         this.status = Status.IN_PROCESS;
     }
 
-	public String getFrom() {
+	public String getFromAccountNumber() {
 		return fromAccount;
     }
 
-	public String getTo() {
+	public String getToAccountNumber() {
 		return toAccount;
     }
 

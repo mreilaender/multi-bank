@@ -34,9 +34,9 @@ public class ChooseBankAspect {
 
 		// Prefix von aktuellen Konten abspeichern und bei null Sonderzeichen
 		// '-'
-		if (trans.getFrom() != null) {prefixFrom = trans.getFrom().charAt(0);}
+		if (trans.getFromAccountNumber() != null) {prefixFrom = trans.getFromAccountNumber().charAt(0);}
 		else {prefixFrom = '-';}
-		if (trans.getTo() != null) {prefixTo = trans.getTo().charAt(0);}
+		if (trans.getToAccountNumber() != null) {prefixTo = trans.getToAccountNumber().charAt(0);}
 		else {prefixTo = '-';}
 		
 		// abfragen ob Kontos zur eigenen Bank 'Y' gehören
