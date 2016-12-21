@@ -3,7 +3,6 @@ package com.accenture.multibank.bank;
 import com.accenture.multibank.accounts.AccountModifiable;
 import com.accenture.multibank.accounts.AccountType;
 import com.accenture.multibank.dao.AbstractDAO;
-import com.accenture.multibank.entities.AccountDAO;
 import com.accenture.multibank.exceptions.AccountNotFoundException;
 import com.accenture.multibank.factory.AccountFactory;
 import com.accenture.multibank.generator.AccountNumberGenerator;
@@ -16,14 +15,12 @@ import org.springframework.stereotype.Service;
  */
 @Service(value = "RaiffeisenBank")
 public class RaiffeisenBank implements Bank {
-    private final AccountDAO accountDAO2;
     private final AbstractDAO<java.lang.Integer, AccountModifiable> accountDAO;
     private final AccountNumberGenerator accountNumberGenerator;
     private final AccountFactory accountFactory;
 
     @Autowired
-    public RaiffeisenBank(AccountDAO accountDAO2, AccountNumberGenerator accountNumberGenerator, AccountFactory accountFactory, AbstractDAO<Integer, AccountModifiable> accountDAO) {
-        this.accountDAO2 = accountDAO2;
+    public RaiffeisenBank(AccountNumberGenerator accountNumberGenerator, AccountFactory accountFactory, AbstractDAO<Integer, AccountModifiable> accountDAO) {
         this.accountNumberGenerator = accountNumberGenerator;
         this.accountFactory = accountFactory;
         this.accountDAO = accountDAO;
@@ -63,7 +60,6 @@ public class RaiffeisenBank implements Bank {
     public Integer createAccount(AccountType type, int balance) {
         AccountModifiable newAccount = accountFactory.createAccount(accountNumberGenerator, type, balance);
         accountDAO.save(newAccount);
-        accountDAO2.equals(null);
         return newAccount.getAccountNumber();
     }
 }
