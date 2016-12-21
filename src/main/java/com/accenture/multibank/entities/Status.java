@@ -5,5 +5,5 @@ package com.accenture.multibank.entities;
  * @version 12/20/16
  */
 public enum Status {
-    FINISHED, IN_PROCESS
+	FINISHED, IN_PROCESS, FAILED
 }

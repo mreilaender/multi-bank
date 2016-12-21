@@ -5,7 +5,6 @@ import static org.springframework.web.bind.annotation.RequestMethod.PUT;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -19,7 +18,6 @@ import com.accenture.multibank.entities.Transaction;
  * @version 12/20/16
  */
 @RequestMapping("/atm")
-@EnableAspectJAutoProxy
 @RestController
 public class BankController {
     private final Bank bank;
@@ -30,8 +28,11 @@ public class BankController {
     }
 
     @RequestMapping(value = "/{type}", method = POST)
-    public Integer createAccount(@PathVariable AccountType type) {
-        return bank.createAccount(type, 0);
+	public String createAccount(@PathVariable AccountType type) {
+		// TODO: int + Prefix = String
+		String newAccountNr = new String();
+		newAccountNr = bank.createAccount(type, 0).toString();
+		return newAccountNr;
     }
 
     @RequestMapping(method = PUT)

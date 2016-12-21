@@ -6,27 +6,27 @@ package com.accenture.multibank.entities;
  */
 public class Transaction {
 
-	private String from;
-	private String to;
-    private int amount;
+	private String fromAccount;
+	private String toAccount;
+	private int amount; // zweite Bank ist dies BigDecimal
     private Status status;
 
     public Transaction() {
     }
 
 	public Transaction(String from, String to, int amount) {
-        this.from = from;
-        this.to = to;
+		this.fromAccount = from;
+		this.toAccount = to;
         this.amount = amount;
         this.status = Status.IN_PROCESS;
     }
 
 	public String getFrom() {
-        return from;
+		return fromAccount;
     }
 
 	public String getTo() {
-        return to;
+		return toAccount;
     }
 
     public int getAmount() {
