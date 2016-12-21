@@ -13,7 +13,7 @@ import java.util.Set;
 public class AccountNumberGeneratorTest {
 
 	@Autowired
-	AccountNumberGeneratorDao generator;
+	private AccountNumberGeneratorDao generator;
 
 	@Test
 	public void createANumber() {
