@@ -50,7 +50,6 @@ public class BankControllerTest {
 
 		String externeAccNr = "Y" + accountNumber;
 		Transaction transaction = new Transaction(externeAccNr, null, amount);
-
 		AccountReadable account = new SavingAccount(accountNumber, outBalance);
 
 		when(bank.withdraw(accountNumber, amount)).thenReturn(account);
