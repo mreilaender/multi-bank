@@ -1,6 +1,7 @@
 package com.accenture.multibank.bank;
 
 import com.accenture.multibank.accounts.AccountModifiable;
+import com.accenture.multibank.accounts.AccountReadable;
 import com.accenture.multibank.accounts.AccountType;
 import com.accenture.multibank.dao.AbstractDAO;
 import com.accenture.multibank.exceptions.AccountNotFoundException;
@@ -27,13 +28,13 @@ public class RaiffeisenBank implements Bank {
     }
 
     @Override
-    public boolean withdraw(Integer accNr, int amount) {
+    public AccountReadable withdraw(Integer accNr, int amount) {
         if (amount < 0)
             throw new IllegalArgumentException("Amount can't be negative in withdraw");
         return book(accNr, -amount);
     }
 
-    private boolean book(Integer accNr, int amount) {
+    private AccountReadable book(Integer accNr, int amount) {
         AccountModifiable account = accountDAO.find(accNr);
         if (account == null)
             throw new AccountNotFoundException("Account could not be found");
@@ -41,25 +42,23 @@ public class RaiffeisenBank implements Bank {
     }
 
     @Override
-    public boolean deposit(Integer accNr, int amount) {
+    public AccountReadable deposit(Integer accNr, int amount) {
         if (amount < 0)
             throw new IllegalArgumentException("Amount can't be negative in deposit");
         return book(accNr, amount);
     }
 
     @Override
-    public boolean transfer(Integer accNrFrom, Integer accNrTo, int amount) {
+    public AccountReadable transfer(Integer accNrFrom, Integer accNrTo, int amount) {
         AccountModifiable from = accountDAO.find(accNrFrom),
                 to = accountDAO.find(accNrTo);
-        from.book(-amount);
         to.book(amount);
-        return true;
+        return from.book(-amount);
     }
 
     @Override
-    public Integer createAccount(AccountType type, int balance) {
+    public AccountReadable createAccount(AccountType type, int balance) {
         AccountModifiable newAccount = accountFactory.createAccount(accountNumberGenerator, type, balance);
-        accountDAO.save(newAccount);
-        return newAccount.getAccountNumber();
+        return accountDAO.save(newAccount);
     }
 }

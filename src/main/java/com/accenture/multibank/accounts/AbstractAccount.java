@@ -24,18 +24,10 @@ public abstract class AbstractAccount implements AccountModifiable {
 		return balance;
 	}
 
-	public boolean book(int amount) {
-
-		if (verifyBookingCondition(amount)) {
-
-		balance = balance + amount;
-
-			return true;
-		}
-
-		else {
-			return false;
-		}
+	public AccountReadable book(int amount) {
+		if (verifyBookingCondition(amount))
+			balance = balance + amount;
+		return this;
 	}
 
 	@Override

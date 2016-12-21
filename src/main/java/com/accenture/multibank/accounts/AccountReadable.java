@@ -5,7 +5,7 @@ package com.accenture.multibank.accounts;
  * @version 11/29/16
  */
 public interface AccountReadable {
-        public int getAccountNumber();
+        int getAccountNumber();
 
-        public int getBalance();
+        int getBalance();
 }

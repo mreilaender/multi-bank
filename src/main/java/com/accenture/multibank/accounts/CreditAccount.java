@@ -4,11 +4,11 @@ import com.accenture.multibank.exceptions.UnbalancedCreditAccountException;
 
 public class CreditAccount extends AbstractAccount {
 
-	public CreditAccount(int acountNumber, int balance) {
-		super(acountNumber, balance);
-	}
+	private int creditLine;
 
-	int creditLine;
+	public CreditAccount(int accountNumber, int balance) {
+		super(accountNumber, balance);
+	}
 
 	public boolean verifyBookingCondition(int amount) {
 		if (amount < 0 && Math.abs(amount) > (this.getBalance() + this.creditLine)) {

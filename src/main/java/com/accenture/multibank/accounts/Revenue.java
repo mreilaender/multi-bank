@@ -13,23 +13,14 @@ public class Revenue {
 		this.timestamp = Calendar.getInstance().getTime();
 	}
 
-	/**
-	 * @return the revenue
-	 */
 	public int getRevenue() {
 		return revenue;
 	}
 
-	/**
-	 * @param revenue the revenue to set
-	 */
 	public void setRevenue(int revenue) {
 		this.revenue = revenue;
 	}
 
-	/**
-	 * @return the timestamp
-	 */
 	public Date getTimestamp() {
 		return timestamp;
 	}

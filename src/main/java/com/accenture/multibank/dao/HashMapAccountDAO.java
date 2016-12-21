@@ -1,10 +1,10 @@
 package com.accenture.multibank.dao;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import com.accenture.multibank.accounts.AccountModifiable;
 import org.springframework.stereotype.Service;
+
+import java.util.HashMap;
+import java.util.Map;
 
 @Service
 public class HashMapAccountDAO implements AbstractDAO<Integer, AccountModifiable> {
@@ -12,8 +12,8 @@ public class HashMapAccountDAO implements AbstractDAO<Integer, AccountModifiable
 	private Map<Integer, AccountModifiable> map = new HashMap<>();
 
 	@Override
-	public void save(AccountModifiable account) {
-		map.put(account.getAccountNumber(), account);
+	public AccountModifiable save(AccountModifiable account) {
+		return map.put(account.getAccountNumber(), account);
 	}
 
 	@Override
