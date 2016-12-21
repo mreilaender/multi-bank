@@ -41,10 +41,9 @@ public class BankController {
 		String toWithoutPrefix = transaction.getFrom().substring(1);
 
 		if (transaction.getTo() == null)
-            if (transaction.getAmount() > 0)
-				bank.deposit(Integer.parseInt(fromWithoutPrefix), transaction.getAmount());
-            else
-				bank.withdraw(Integer.parseInt(fromWithoutPrefix), transaction.getAmount());
+			bank.withdraw(Integer.parseInt(fromWithoutPrefix), Math.abs(transaction.getAmount()));
+		else if (transaction.getFrom() == null)
+			bank.deposit(Integer.parseInt(fromWithoutPrefix), Math.abs(transaction.getAmount()));
         else
 			bank.transfer(Integer.parseInt(fromWithoutPrefix), Integer.parseInt(toWithoutPrefix),
 					transaction.getAmount());
