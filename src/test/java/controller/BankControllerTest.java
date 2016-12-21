@@ -22,6 +22,7 @@ public class BankControllerTest {
 
 	@MockBean
 	Bank bank;
+
 	@Autowired
 	BankController bankController;
 
