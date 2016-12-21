@@ -3,34 +3,30 @@ package com.accenture.multibank.bank;
 import com.accenture.multibank.accounts.AccountModifiable;
 import com.accenture.multibank.accounts.AccountType;
 import com.accenture.multibank.dao.AbstractDAO;
-import com.accenture.multibank.entities.Account;
 import com.accenture.multibank.entities.AccountDAO;
 import com.accenture.multibank.exceptions.AccountNotFoundException;
 import com.accenture.multibank.factory.AccountFactory;
 import com.accenture.multibank.generator.AccountNumberGenerator;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Service;
 
 /**
  * @author manuel
  * @version 11/29/16
  */
-@Service
+@Service(value = "RaiffeisenBank")
 public class RaiffeisenBank implements Bank {
-    private final CrudRepository<Account, Integer> test;
     private final AccountDAO accountDAO2;
     private final AbstractDAO<java.lang.Integer, AccountModifiable> accountDAO;
     private final AccountNumberGenerator accountNumberGenerator;
     private final AccountFactory accountFactory;
 
     @Autowired
-    public RaiffeisenBank(AccountDAO accountDAO2, AccountNumberGenerator accountNumberGenerator, AccountFactory accountFactory, AbstractDAO<Integer, AccountModifiable> accountDAO, CrudRepository<Account, Integer> test) {
+    public RaiffeisenBank(AccountDAO accountDAO2, AccountNumberGenerator accountNumberGenerator, AccountFactory accountFactory, AbstractDAO<Integer, AccountModifiable> accountDAO) {
         this.accountDAO2 = accountDAO2;
         this.accountNumberGenerator = accountNumberGenerator;
         this.accountFactory = accountFactory;
         this.accountDAO = accountDAO;
-        this.test = test;
     }
 
     @Override
