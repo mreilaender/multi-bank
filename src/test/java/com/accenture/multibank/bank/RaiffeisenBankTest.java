@@ -6,6 +6,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 /**
@@ -13,6 +14,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
  * @version 11/30/16
  */
 @RunWith(SpringJUnit4ClassRunner.class)
+@TestPropertySource(locations = "classpath:application.test.properties")
 public class RaiffeisenBankTest {
     @Autowired
     @Qualifier(value = "RaiffeisenBank")
