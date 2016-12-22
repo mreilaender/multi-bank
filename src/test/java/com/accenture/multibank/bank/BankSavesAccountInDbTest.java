@@ -32,7 +32,9 @@ public class BankSavesAccountInDbTest {
 	@Test
 	public void testDepositWithAccountFromDatabase() {
 		int amount = 100;
-		raiffeisenBank.deposit(accNr1.getAccountNumber(), amount);
+		AccountReadable account = raiffeisenBank.deposit(accNr1.getAccountNumber(), amount);
+		System.out.println(account.getAccountNumber());
+		System.out.println(account.getBalance());
 
 	}
 
