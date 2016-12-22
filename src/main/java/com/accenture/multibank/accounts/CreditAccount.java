@@ -1,17 +1,20 @@
 package com.accenture.multibank.accounts;
 
+import java.math.BigDecimal;
+
 import com.accenture.multibank.exceptions.UnbalancedCreditAccountException;
 
 public class CreditAccount extends AbstractAccount {
 
 	private float creditLine;
 
-	public CreditAccount(int accountNumber, int balance) {
+	public CreditAccount(int accountNumber, BigDecimal balance) {
 		super(accountNumber, balance);
 	}
 
-	public boolean verifyBookingCondition(int amount) {
-		if (amount < 0 && Math.abs(amount) > (this.getBalance() + this.creditLine)) {
+	public boolean verifyBookingCondition(BigDecimal amount) {
+		if (amount.compareTo(new BigDecimal(0)) < 0
+				&& amount.abs().compareTo((this.getBalance().add(new BigDecimal(this.creditLine)))) >= 0) {
 			throw new UnbalancedCreditAccountException("Your balance or credit line is too low");
 		}
 

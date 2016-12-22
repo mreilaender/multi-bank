@@ -1,5 +1,7 @@
 package com.accenture.multibank.entities;
 
+import java.math.BigDecimal;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -25,23 +27,23 @@ public class Account {
 	private Credit_Account CREDIT;
 
     @NotNull
-    private int BALANCE;
+	private BigDecimal BALANCE;
 
     public Account() {
     }
 
-	public Account(int ACCOUNT_NUMBER, int BALANCE) {
+	public Account(int ACCOUNT_NUMBER, BigDecimal BALANCE) {
         this.ACCOUNT_NUMBER = ACCOUNT_NUMBER;
         this.BALANCE = BALANCE;
     }
 
-	public Account(int ACCOUNT_NUMBER, int BALANCE, Saving_Account SAVING) {
+	public Account(int ACCOUNT_NUMBER, BigDecimal BALANCE, Saving_Account SAVING) {
 		this.ACCOUNT_NUMBER = ACCOUNT_NUMBER;
 		this.BALANCE = BALANCE;
 		this.SAVING = SAVING;
 	}
 
-	public Account(int ACCOUNT_NUMBER, int BALANCE, Credit_Account CREDIT) {
+	public Account(int ACCOUNT_NUMBER, BigDecimal BALANCE, Credit_Account CREDIT) {
 		this.ACCOUNT_NUMBER = ACCOUNT_NUMBER;
 		this.BALANCE = BALANCE;
 		this.CREDIT = CREDIT;
@@ -63,11 +65,11 @@ public class Account {
         this.ACCOUNT_NUMBER = ACCOUNT_NUMBER;
     }
 
-    public int getBALANCE() {
+	public BigDecimal getBALANCE() {
         return BALANCE;
     }
 
-    public void setBALANCE(int BALANCE) {
+	public void setBALANCE(BigDecimal BALANCE) {
         this.BALANCE = BALANCE;
     }
 

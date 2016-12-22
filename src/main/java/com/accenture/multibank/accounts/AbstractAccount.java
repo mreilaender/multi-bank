@@ -1,32 +1,38 @@
 package com.accenture.multibank.accounts;
 
+import java.math.BigDecimal;
 import java.util.Objects;
 
 public abstract class AbstractAccount implements AccountModifiable {
 
-	private int balance;
+	private BigDecimal balance;
 	private int accountNumber;
 
-	public AbstractAccount(int accountNumber, int balance) {
+	public AbstractAccount(int accountNumber, BigDecimal balance) {
 		this.accountNumber = accountNumber;
 		this.balance = balance;
 	}
 
-	abstract public boolean verifyBookingCondition(int amount);
+	abstract public boolean verifyBookingCondition(BigDecimal amount);
 
 	public int getAccountNumber() {
 
 		return accountNumber;
 	}
 
-	public int getBalance() {
+	public BigDecimal getBalance() {
 
 		return balance;
 	}
 
-	public AccountReadable book(int amount) {
-		if (verifyBookingCondition(amount))
-			balance = balance + amount;
+	public AccountReadable book(BigDecimal amount) {
+
+		if (verifyBookingCondition(amount)) {
+
+			balance = balance.add(amount);
+
+		}
+
 		return this;
 	}
 

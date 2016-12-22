@@ -1,5 +1,7 @@
 package com.accenture.multibank.accounts;
 
+import java.math.BigDecimal;
+
 /**
  * @author manuel
  * @version 11/29/16
@@ -7,5 +9,5 @@ package com.accenture.multibank.accounts;
 public interface AccountReadable {
         int getAccountNumber();
 
-        int getBalance();
+	BigDecimal getBalance();
 }

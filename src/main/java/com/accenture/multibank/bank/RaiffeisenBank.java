@@ -1,5 +1,7 @@
 package com.accenture.multibank.bank;
 
+import java.math.BigDecimal;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -35,13 +37,13 @@ public class RaiffeisenBank implements Bank {
     }
 
     @Override
-    public AccountReadable withdraw(Integer accNr, int amount) {
-        if (amount < 0)
+	public AccountReadable withdraw(Integer accNr, BigDecimal amount) {
+		if (amount.compareTo(new BigDecimal(0)) < 0)
             throw new IllegalArgumentException("Amount can't be negative in withdraw");
-        return book(accNr, -amount);
+		return book(accNr, amount.negate());
     }
 
-    private AccountReadable book(Integer accNr, int amount) {
+	private AccountReadable book(Integer accNr, BigDecimal amount) {
 		Account dbAccount = accountDAO.findOne(accNr);
 		if (dbAccount == null)
             throw new AccountNotFoundException("Account could not be found");
@@ -55,20 +57,20 @@ public class RaiffeisenBank implements Bank {
 
 
     @Override
-    public AccountReadable deposit(Integer accNr, int amount) {
-        if (amount < 0)
+	public AccountReadable deposit(Integer accNr, BigDecimal amount) {
+		if (amount.compareTo(new BigDecimal(0)) < 0)
             throw new IllegalArgumentException("Amount can't be negative in deposit");
         return book(accNr, amount);
     }
 
     @Override
-    public AccountReadable transfer(Integer accNrFrom, Integer accNrTo, int amount) {
+	public AccountReadable transfer(Integer accNrFrom, Integer accNrTo, BigDecimal amount) {
 		Account dbFrom = accountDAO.findOne(accNrFrom), dbTo = accountDAO.findOne(accNrTo);
 		if (dbFrom == null || dbTo == null)
 			throw new AccountNotFoundException("Account could not be found");
 		AccountModifiable from = selectAccountType(dbFrom), to = selectAccountType(dbTo);
 		to = (AccountModifiable) to.book(amount);
-		from = (AccountModifiable) from.book(-amount);
+		from = (AccountModifiable) from.book(amount.negate());
 
 		dbFrom.setBALANCE(from.getBalance());
 		dbTo.setBALANCE(to.getBalance());
@@ -79,7 +81,7 @@ public class RaiffeisenBank implements Bank {
     }
 
     @Override
-    public AccountReadable createAccount(AccountType type, int balance) {
+	public AccountReadable createAccount(AccountType type, BigDecimal balance) {
         AccountModifiable newAccount = accountFactory.createAccount(accountNumberGenerator, type, balance);
 		Account DbAccount;
 		if (type == AccountType.SAVING) {

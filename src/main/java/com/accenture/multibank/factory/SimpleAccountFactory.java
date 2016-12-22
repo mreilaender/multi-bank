@@ -1,12 +1,15 @@
 package com.accenture.multibank.factory;
 
+import java.math.BigDecimal;
+
+import org.springframework.stereotype.Service;
+
 import com.accenture.multibank.accounts.AccountModifiable;
 import com.accenture.multibank.accounts.AccountType;
 import com.accenture.multibank.accounts.CreditAccount;
 import com.accenture.multibank.accounts.SavingAccount;
 import com.accenture.multibank.exceptions.OperationNotSupportedException;
 import com.accenture.multibank.generator.AccountNumberGenerator;
-import org.springframework.stereotype.Service;
 
 @Service
 public class SimpleAccountFactory implements AccountFactory {
@@ -21,7 +24,8 @@ public class SimpleAccountFactory implements AccountFactory {
 	 * @param balance Balance to be set on the account
 	 * @return
 	 */
-	public AccountModifiable createAccount(AccountNumberGenerator generator, AccountType accountType, int balance) throws OperationNotSupportedException {
+	public AccountModifiable createAccount(AccountNumberGenerator generator, AccountType accountType,
+			BigDecimal balance) throws OperationNotSupportedException {
 		if (generator == null)
 			throw new NullPointerException("Generator can't be null");
 		if (accountType == null)

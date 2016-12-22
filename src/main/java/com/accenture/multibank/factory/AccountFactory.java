@@ -1,5 +1,7 @@
 package com.accenture.multibank.factory;
 
+import java.math.BigDecimal;
+
 import com.accenture.multibank.accounts.AccountModifiable;
 import com.accenture.multibank.accounts.AccountType;
 import com.accenture.multibank.generator.AccountNumberGenerator;
@@ -9,5 +11,5 @@ import com.accenture.multibank.generator.AccountNumberGenerator;
  * @version 11/23/16
  */
 public interface AccountFactory {
-	AccountModifiable createAccount(AccountNumberGenerator generator, AccountType accountType, int balance);
+	AccountModifiable createAccount(AccountNumberGenerator generator, AccountType accountType, BigDecimal balance);
 }
