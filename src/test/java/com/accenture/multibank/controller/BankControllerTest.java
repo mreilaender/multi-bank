@@ -37,16 +37,6 @@ public class BankControllerTest {
 	@MockBean
 	AbstractBankChooser<Transaction> bankChooser;
 
-
-	// @Before
-	// public void test() {
-	// bank = mock(Bank.class);
-	// bankController = new BankController(bank);
-	// }
-
-
-
-
 	@Test
 	public void testcreateAccount() throws Exception {
 		String actuell = bankController.createAccount(AccountType.SAVING);
