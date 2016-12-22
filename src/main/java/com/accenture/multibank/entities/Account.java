@@ -1,6 +1,12 @@
 package com.accenture.multibank.entities;
 
-import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
 /**
@@ -15,6 +21,8 @@ public class Account {
     private int ID;
 
     private String ACCOUNT_NUMBER;
+	private Saving_Account SAVING;
+	private Credit_Account CREDIT;
 
     @NotNull
     private int BALANCE;
@@ -26,6 +34,18 @@ public class Account {
         this.ACCOUNT_NUMBER = ACCOUNT_NUMBER;
         this.BALANCE = BALANCE;
     }
+
+	public Account(String ACCOUNT_NUMBER, int BALANCE, Saving_Account SAVING) {
+		this.ACCOUNT_NUMBER = ACCOUNT_NUMBER;
+		this.BALANCE = BALANCE;
+		this.SAVING = SAVING;
+	}
+
+	public Account(String ACCOUNT_NUMBER, int BALANCE, Credit_Account CREDIT) {
+		this.ACCOUNT_NUMBER = ACCOUNT_NUMBER;
+		this.BALANCE = BALANCE;
+		this.CREDIT = CREDIT;
+	}
 
     public int getID() {
         return ID;
@@ -50,4 +70,23 @@ public class Account {
     public void setBALANCE(int BALANCE) {
         this.BALANCE = BALANCE;
     }
+
+	@OneToOne(cascade = CascadeType.ALL, mappedBy = "account")
+	public Saving_Account getSAVING() {
+		return SAVING;
+	}
+
+	public void setSAVING(Saving_Account sAVING) {
+		SAVING = sAVING;
+	}
+
+	@OneToOne(cascade = CascadeType.ALL, mappedBy = "account")
+	public Credit_Account getCREDIT() {
+		return CREDIT;
+	}
+
+	public void setCREDIT(Credit_Account cREDIT) {
+		CREDIT = cREDIT;
+	}
+
 }
