@@ -31,7 +31,7 @@ public class Transaction {
 		return toAccount;
     }
 
-    public int getAmount() {
+	public BigDecimal getAmount() {
         return amount;
     }
 
