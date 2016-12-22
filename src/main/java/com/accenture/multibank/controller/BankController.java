@@ -1,17 +1,5 @@
 package com.accenture.multibank.controller;
 
-import static org.springframework.web.bind.annotation.RequestMethod.GET;
-import static org.springframework.web.bind.annotation.RequestMethod.POST;
-import static org.springframework.web.bind.annotation.RequestMethod.PUT;
-
-import java.math.BigDecimal;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
 import com.accenture.multibank.accounts.AccountReadable;
 import com.accenture.multibank.accounts.AccountType;
 import com.accenture.multibank.bank.Bank;
@@ -20,6 +8,17 @@ import com.accenture.multibank.entities.Status;
 import com.accenture.multibank.entities.Transaction;
 import com.accenture.multibank.jms.AbstractBankChooser;
 import com.accenture.multibank.jms.JMSBankChooser;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import java.math.BigDecimal;
+
+import static org.springframework.web.bind.annotation.RequestMethod.*;
 
 /**
  * @author manuel
@@ -39,15 +38,14 @@ public class BankController {
 	}
 
 	@RequestMapping(value = "/{type}", method = POST)
-	public String createAccount(@PathVariable AccountType type) {
+	public ResponseEntity<AccountReadable> createAccount(@PathVariable AccountType type) {
 		// TODO: int + Prefix = String
-		String newAccountNr = new String();
-		newAccountNr = "bank.createAccount(type, 0).getAccountNumber()";
-		return newAccountNr;
+		AccountReadable accountReadable = bank.createAccount(type, new BigDecimal(0));
+		return new ResponseEntity<>(accountReadable, HttpStatus.OK);
 	}
 
 	@RequestMapping(method = PUT)
-	public Transaction book(Transaction transaction) {
+	public ResponseEntity<Transaction> book(Transaction transaction) {
 
 		BigDecimal absAmount = transaction.getAmount().abs();
 
@@ -66,7 +64,7 @@ public class BankController {
 			bank.transfer(accountNumberFrom, accountNumberTo, absAmount);
 		}
 		transaction.setStatus(Status.FINISHED);
-		return transaction;
+		return new ResponseEntity<Transaction>(transaction, HttpStatus.OK);
 	}
 
 	public int changeIntoInternalAccountNumber(String externalAccountNumber) {
