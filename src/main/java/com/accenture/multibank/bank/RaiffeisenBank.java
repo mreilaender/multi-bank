@@ -22,8 +22,9 @@ import com.accenture.multibank.generator.AccountNumberGenerator;
  * @author manuel
  * @version 11/29/16
  */
-@Service(value = "RaiffeisenBank")
+@Service(value = RaiffeisenBank.QUALIFIER)
 public class RaiffeisenBank implements Bank {
+    public final static String QUALIFIER = "RaiffeisenBank";
 	private final AccountDAO accountDAO;
     private final AccountNumberGenerator accountNumberGenerator;
     private final AccountFactory accountFactory;
