@@ -10,6 +10,7 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.accenture.multibank.Main;
@@ -21,7 +22,7 @@ import com.accenture.multibank.jms.AbstractBankChooser;
 
 @SpringBootTest(classes = { Main.class })
 @RunWith(SpringJUnit4ClassRunner.class)
-
+@TestPropertySource(locations = "classpath:application.test.properties")
 public class BankControllerWithAspectTest {
 
 	@Autowired

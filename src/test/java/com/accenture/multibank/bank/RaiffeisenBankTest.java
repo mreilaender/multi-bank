@@ -7,6 +7,7 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.accenture.multibank.Main;
@@ -19,6 +20,7 @@ import com.accenture.multibank.accounts.AccountType;
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest(classes = { Main.class })
+@TestPropertySource(locations = "classpath:application.test.properties")
 public class RaiffeisenBankTest {
     @Autowired
     @Qualifier(value = "RaiffeisenBank")
