@@ -46,7 +46,7 @@ public class BankControllerTest {
 	@Test
 	public void testbookWithdraw() throws Exception {
 		int accountNumber = 1234;
-		int outBalance = 100;
+		BigDecimal outBalance = new BigDecimal(100.0);
 		BigDecimal amount = new BigDecimal(100.0);
 
 		String externeAccNr = "Y" + accountNumber;

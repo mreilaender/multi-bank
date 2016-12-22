@@ -62,7 +62,7 @@ public class BankControllerWithAspectTest {
 	@Test
 	public void testAspectEntscheidetRichtigBei_to_VonFremderBank() throws Exception {
 		int accountNumber = 1234;
-		int outBalance = 100;
+		BigDecimal outBalance = new BigDecimal(100.0);
 		BigDecimal amount = new BigDecimal(100.0);
 
 		String externeAccNr = "S" + accountNumber;
@@ -82,7 +82,7 @@ public class BankControllerWithAspectTest {
 	public void testAspectEntscheidetRichtigBei_toAndFrom_VonFremderBank() throws Exception {
 		int accountNumber1 = 1234;
 		int accountNumber2 = 5678;
-		int outBalance = 100;
+		BigDecimal outBalance = new BigDecimal(100.0);
 		BigDecimal amount = new BigDecimal(100.0);
 
 		String externeAccNr1 = "S" + accountNumber1;
