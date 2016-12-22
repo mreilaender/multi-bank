@@ -4,6 +4,8 @@ import static org.springframework.web.bind.annotation.RequestMethod.GET;
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
 import static org.springframework.web.bind.annotation.RequestMethod.PUT;
 
+import java.math.BigDecimal;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -47,7 +49,7 @@ public class BankController {
 	@RequestMapping(method = PUT)
 	public Transaction book(Transaction transaction) {
 
-		int absAmount = Math.abs(transaction.getAmount());
+		BigDecimal absAmount = transaction.getAmount().abs();
 
 		if (transaction.getToAccountNumber() == null) {
 			int accountNumber = changeIntoInternalAccountNumber(transaction.getFromAccountNumber());
