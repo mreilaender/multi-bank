@@ -19,8 +19,8 @@ public class Credit_Account {
 		return CREDITLINE;
 	}
 
-	public void setCREDITLINE(float cREDITLINE) {
-		CREDITLINE = cREDITLINE;
+	public void setCREDITLINE(float CREDITLINE) {
+		this.CREDITLINE = CREDITLINE;
 	}
 
 	@Id

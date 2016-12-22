@@ -20,7 +20,7 @@ public class Account {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int ID;
 
-    private String ACCOUNT_NUMBER;
+	private int ACCOUNT_NUMBER;
 	private Saving_Account SAVING;
 	private Credit_Account CREDIT;
 
@@ -30,18 +30,18 @@ public class Account {
     public Account() {
     }
 
-    public Account(String ACCOUNT_NUMBER, int BALANCE) {
+	public Account(int ACCOUNT_NUMBER, int BALANCE) {
         this.ACCOUNT_NUMBER = ACCOUNT_NUMBER;
         this.BALANCE = BALANCE;
     }
 
-	public Account(String ACCOUNT_NUMBER, int BALANCE, Saving_Account SAVING) {
+	public Account(int ACCOUNT_NUMBER, int BALANCE, Saving_Account SAVING) {
 		this.ACCOUNT_NUMBER = ACCOUNT_NUMBER;
 		this.BALANCE = BALANCE;
 		this.SAVING = SAVING;
 	}
 
-	public Account(String ACCOUNT_NUMBER, int BALANCE, Credit_Account CREDIT) {
+	public Account(int ACCOUNT_NUMBER, int BALANCE, Credit_Account CREDIT) {
 		this.ACCOUNT_NUMBER = ACCOUNT_NUMBER;
 		this.BALANCE = BALANCE;
 		this.CREDIT = CREDIT;
@@ -55,11 +55,11 @@ public class Account {
         this.ID = ID;
     }
 
-    public String getACCOUNT_NUMBER() {
+	public int getACCOUNT_NUMBER() {
         return ACCOUNT_NUMBER;
     }
 
-    public void setACCOUNT_NUMBER(String ACCOUNT_NUMBER) {
+	public void setACCOUNT_NUMBER(int ACCOUNT_NUMBER) {
         this.ACCOUNT_NUMBER = ACCOUNT_NUMBER;
     }
 
