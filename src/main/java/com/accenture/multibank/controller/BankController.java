@@ -1,19 +1,22 @@
 package com.accenture.multibank.controller;
 
-import static org.springframework.web.bind.annotation.RequestMethod.POST;
-import static org.springframework.web.bind.annotation.RequestMethod.PUT;
-
+import com.accenture.multibank.accounts.AccountReadable;
+import com.accenture.multibank.accounts.AccountType;
+import com.accenture.multibank.bank.Bank;
+import com.accenture.multibank.bank.RaiffeisenBank;
+import com.accenture.multibank.entities.Status;
+import com.accenture.multibank.entities.Transaction;
+import com.accenture.multibank.jms.AbstractBankChooser;
+import com.accenture.multibank.jms.JMSBankChooser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.accenture.multibank.accounts.AccountReadable;
-import com.accenture.multibank.accounts.AccountType;
-import com.accenture.multibank.bank.Bank;
-import com.accenture.multibank.entities.Status;
-import com.accenture.multibank.entities.Transaction;
+import static org.springframework.web.bind.annotation.RequestMethod.GET;
+import static org.springframework.web.bind.annotation.RequestMethod.POST;
+import static org.springframework.web.bind.annotation.RequestMethod.PUT;
 /**
  * @author manuel
  * @version 12/20/16
@@ -22,11 +25,13 @@ import com.accenture.multibank.entities.Transaction;
 @RestController
 public class BankController {
     private final Bank bank;
+	private final AbstractBankChooser<Transaction> bankChooser;
 
     @Autowired
-    public BankController(@Qualifier("RaiffeisenBank") Bank bank) {
+    public BankController(@Qualifier(RaiffeisenBank.QUALIFIER) Bank bank, @Qualifier(JMSBankChooser.QUALIFIER) AbstractBankChooser<Transaction> bankChooser) {
         this.bank = bank;
-    }
+		this.bankChooser = bankChooser;
+	}
 
     @RequestMapping(value = "/{type}", method = POST)
 	public String createAccount(@PathVariable AccountType type) {
@@ -69,6 +74,8 @@ public class BankController {
 		return WithoutPrefixInt;
 	}
 
-
-
+	@RequestMapping(method = GET)
+	public Transaction test(Transaction transaction) {
+		return bankChooser.sendToBank(transaction);
+	}
 }

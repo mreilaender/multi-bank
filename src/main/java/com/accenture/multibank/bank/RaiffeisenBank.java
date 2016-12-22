@@ -14,8 +14,9 @@ import org.springframework.stereotype.Service;
  * @author manuel
  * @version 11/29/16
  */
-@Service(value = "RaiffeisenBank")
+@Service(value = RaiffeisenBank.QUALIFIER)
 public class RaiffeisenBank implements Bank {
+    public final static String QUALIFIER = "RaiffeisenBank";
     private final AbstractDAO<java.lang.Integer, AccountModifiable> accountDAO;
     private final AccountNumberGenerator accountNumberGenerator;
     private final AccountFactory accountFactory;
