@@ -43,13 +43,12 @@ public class BankControllerWithAspectTest {
 	@Test
 	public void testAspectEntscheidetRichtigBei_from_VonFremderBank() throws Exception {
 		int accountNumber = 1234;
-		int outBalance = 100;
+		BigDecimal outBalance = new BigDecimal(100.0);
 		BigDecimal amount = new BigDecimal(100.0);
 
 		String externeAccNr = "S" + accountNumber;
 		Transaction transaction = new Transaction(externeAccNr, null, amount);
-		// AccountReadable account = new SavingAccount(accountNumber,
-		// outBalance);
+		AccountReadable account = new SavingAccount(accountNumber, outBalance);
 
 		bankChooser.sendToBank(transaction);
 
