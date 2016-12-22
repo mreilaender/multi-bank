@@ -3,9 +3,11 @@ package com.accenture.multibank.aspect;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.accenture.multibank.entities.Transaction;
+import com.accenture.multibank.jms.AbstractBankChooser;
 
 /**
  * @author manuel
@@ -16,7 +18,8 @@ import com.accenture.multibank.entities.Transaction;
 public class ChooseBankAspect {
 
 	BankSelector bankSelector = new BankSelector();
-	RemoteBankFacade remotebank;
+	@Autowired
+	AbstractBankChooser<Transaction> bankChooser;
 
 	@Around("execution(* com.accenture.multibank.controller.BankController.book(..))")
 	public Object determineBank(ProceedingJoinPoint joinPoint) throws Throwable {
@@ -42,7 +45,7 @@ public class ChooseBankAspect {
 		if (bankSelector.isLocal(prefixFrom, prefixTo))
 			result = joinPoint.proceed();
 		else { // schnittstelle
-				// remoteBank.booking(trans);
+			bankChooser.sendToBank(trans);
 		}
 		
 		return result;
