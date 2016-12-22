@@ -1,37 +1,48 @@
 package com.accenture.multibank.controller;
 
-import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+import java.math.BigDecimal;
 
+import org.junit.Assert;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+
+import com.accenture.multibank.Main;
 import com.accenture.multibank.accounts.AccountReadable;
 import com.accenture.multibank.accounts.AccountType;
 import com.accenture.multibank.accounts.SavingAccount;
 import com.accenture.multibank.bank.Bank;
 import com.accenture.multibank.entities.Transaction;
+import com.accenture.multibank.jms.AbstractBankChooser;
 
-//@SpringBootTest(classes = { Main.class })
-//@RunWith(SpringJUnit4ClassRunner.class)
+@SpringBootTest(classes = { Main.class })
+@RunWith(SpringJUnit4ClassRunner.class)
 public class BankControllerTest {
 
 	// @MockBean
 	// AbstractDAO<Integer, AccountModifiable> accountDAO;
 
-	// @MockBean
-	// Bank bank;
-
-	BankController bankController;
+	@MockBean
 	Bank bank;
 
-	@Before
-	public void test() {
-		bank = mock(Bank.class);
-		bankController = new BankController(bank);
-	}
+	@Autowired
+	BankController bankController;
+
+	@MockBean
+	AbstractBankChooser<Transaction> bankChooser;
+
+
+	// @Before
+	// public void test() {
+	// bank = mock(Bank.class);
+	// bankController = new BankController(bank);
+	// }
 
 
 
@@ -46,7 +57,7 @@ public class BankControllerTest {
 	public void testbookWithdraw() throws Exception {
 		int accountNumber = 1234;
 		int outBalance = 100;
-		int amount = 100;
+		BigDecimal amount = new BigDecimal(100.0);
 
 		String externeAccNr = "Y" + accountNumber;
 		Transaction transaction = new Transaction(externeAccNr, null, amount);
