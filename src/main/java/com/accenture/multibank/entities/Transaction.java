@@ -1,5 +1,7 @@
 package com.accenture.multibank.entities;
 
+import java.math.BigDecimal;
+
 /**
  * @author manuel
  * @version 12/20/16
@@ -8,13 +10,13 @@ public class Transaction {
 
 	private String fromAccount;
 	private String toAccount;
-	private int amount; // zweite Bank ist dies BigDecimal
+	private BigDecimal amount;
     private Status status;
 
     public Transaction() {
     }
 
-	public Transaction(String from, String to, int amount) {
+	public Transaction(String from, String to, BigDecimal amount) {
 		this.fromAccount = from;
 		this.toAccount = to;
         this.amount = amount;
@@ -29,7 +31,7 @@ public class Transaction {
 		return toAccount;
     }
 
-    public int getAmount() {
+	public BigDecimal getAmount() {
         return amount;
     }
 
