@@ -4,7 +4,7 @@ import com.accenture.multibank.exceptions.UnbalancedCreditAccountException;
 
 public class CreditAccount extends AbstractAccount {
 
-	private int creditLine;
+	private float creditLine;
 
 	public CreditAccount(int accountNumber, int balance) {
 		super(accountNumber, balance);
@@ -21,11 +21,11 @@ public class CreditAccount extends AbstractAccount {
 
 	}
 
-	public int getCreditLine() {
+	public float getCreditLine() {
 		return creditLine;
 	}
 
-	public void setCreditLine(int creditLine) {
+	public void setCreditLine(float creditLine) {
 		this.creditLine = creditLine;
 	}
 

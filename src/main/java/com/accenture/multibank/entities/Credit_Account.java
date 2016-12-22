@@ -1,5 +1,7 @@
 package com.accenture.multibank.entities;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -9,9 +11,10 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "credit_account")
-public class Credit_Account {
+public class Credit_Account implements Serializable {
 
 	private Account account;
+
 	private float CREDITLINE;
 
 	@Column(name = "creditline")
@@ -19,8 +22,8 @@ public class Credit_Account {
 		return CREDITLINE;
 	}
 
-	public void setCREDITLINE(float cREDITLINE) {
-		CREDITLINE = cREDITLINE;
+	public void setCREDITLINE(float CREDITLINE) {
+		this.CREDITLINE = CREDITLINE;
 	}
 
 	@Id
@@ -28,6 +31,10 @@ public class Credit_Account {
 	@JoinColumn(name = "id_account_fk")
 	public Account getAccount() {
 		return account;
+	}
+
+	public void setAccount(Account account) {
+		this.account = account;
 	}
 
 }
