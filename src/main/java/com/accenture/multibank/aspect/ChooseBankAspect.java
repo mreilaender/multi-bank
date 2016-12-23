@@ -1,7 +1,6 @@
 package com.accenture.multibank.aspect;
 
 import org.aspectj.lang.ProceedingJoinPoint;
-import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -21,7 +20,8 @@ public class ChooseBankAspect {
 	@Autowired
 	AbstractBankChooser<Transaction> bankChooser;
 
-	@Around("execution(* com.accenture.multibank.controller.BankController.book(..))")
+	// @Around("execution(*
+	// com.accenture.multibank.controller.BankController.book(..))")
 	public Object determineBank(ProceedingJoinPoint joinPoint) throws Throwable {
 		// ausgabeobject aufsetzten
 		Object result = null;
