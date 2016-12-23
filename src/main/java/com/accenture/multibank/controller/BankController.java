@@ -1,24 +1,29 @@
 package com.accenture.multibank.controller;
 
+
+import static org.springframework.web.bind.annotation.RequestMethod.GET;
+import static org.springframework.web.bind.annotation.RequestMethod.PUT;
+
+import java.math.BigDecimal;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
 import com.accenture.multibank.accounts.AccountReadable;
 import com.accenture.multibank.accounts.AccountType;
+import com.accenture.multibank.aspect.BankSelector;
 import com.accenture.multibank.bank.Bank;
 import com.accenture.multibank.bank.RaiffeisenBank;
 import com.accenture.multibank.entities.Status;
 import com.accenture.multibank.entities.Transaction;
 import com.accenture.multibank.jms.AbstractBankChooser;
 import com.accenture.multibank.jms.JMSBankChooser;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
-import java.math.BigDecimal;
-
-import static org.springframework.web.bind.annotation.RequestMethod.*;
 
 /**
  * @author manuel
@@ -29,23 +34,44 @@ import static org.springframework.web.bind.annotation.RequestMethod.*;
 public class BankController {
 	private final Bank bank;
 	private final AbstractBankChooser<Transaction> bankChooser;
+	private BankSelector bankSelector;
 
 	@Autowired
 	public BankController(@Qualifier(RaiffeisenBank.QUALIFIER) Bank bank,
 			@Qualifier(JMSBankChooser.QUALIFIER) AbstractBankChooser<Transaction> bankChooser) {
 		this.bank = bank;
 		this.bankChooser = bankChooser;
+		bankSelector = new BankSelector();
 	}
 
-	@RequestMapping(value = "/{type}", method = POST)
+
+	@RequestMapping(value = "/{type}", method = GET)
 	public ResponseEntity<AccountReadable> createAccount(@PathVariable AccountType type) {
 		// TODO: int + Prefix = String
 		AccountReadable accountReadable = bank.createAccount(type, new BigDecimal(0));
 		return new ResponseEntity<>(accountReadable, HttpStatus.OK);
 	}
-
 	@RequestMapping(method = PUT)
-	public ResponseEntity<Transaction> book(Transaction transaction) {
+	public ResponseEntity<Transaction> book(@RequestBody Transaction transaction) {
+		// public Transaction book(@RequestBody Transaction transaction) {
+
+		char prefixFrom, prefixTo;
+
+		// Prefix von aktuellen Konten abspeichern und bei null Sonderzeichen
+		// '-'
+		if (transaction.getFromAccountNumber() != null) {
+			prefixFrom = transaction.getFromAccountNumber().charAt(0);
+		} else {
+			prefixFrom = '-';
+		}
+		if (transaction.getToAccountNumber() != null) {
+			prefixTo = transaction.getToAccountNumber().charAt(0);
+		} else {
+			prefixTo = '-';
+		}
+
+		if (bankSelector.isLocal(prefixFrom, prefixTo)) {
+
 
 		BigDecimal absAmount = transaction.getAmount().abs();
 
@@ -64,7 +90,12 @@ public class BankController {
 			bank.transfer(accountNumberFrom, accountNumberTo, absAmount);
 		}
 		transaction.setStatus(Status.FINISHED);
-		return new ResponseEntity<Transaction>(transaction, HttpStatus.OK);
+
+			return new ResponseEntity<Transaction>(transaction, HttpStatus.OK);
+		} else {
+			return new ResponseEntity<Transaction>(bankChooser.sendToBank(transaction), HttpStatus.OK);
+		}
+
 	}
 
 	public int changeIntoInternalAccountNumber(String externalAccountNumber) {

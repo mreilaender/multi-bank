@@ -8,8 +8,8 @@ import java.math.BigDecimal;
  */
 public class Transaction {
 
-	private String fromAccount;
-	private String toAccount;
+	private String fromAccountNumber;
+	private String toAccountNumber;
 	private BigDecimal amount;
     private Status status;
 
@@ -17,18 +17,18 @@ public class Transaction {
     }
 
 	public Transaction(String from, String to, BigDecimal amount) {
-		this.fromAccount = from;
-		this.toAccount = to;
+		this.fromAccountNumber = from;
+		this.toAccountNumber = to;
         this.amount = amount;
         this.status = Status.IN_PROCESS;
     }
 
 	public String getFromAccountNumber() {
-		return fromAccount;
+		return fromAccountNumber;
     }
 
 	public String getToAccountNumber() {
-		return toAccount;
+		return toAccountNumber;
     }
 
 	public BigDecimal getAmount() {
