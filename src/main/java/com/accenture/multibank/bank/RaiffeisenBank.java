@@ -1,7 +1,9 @@
 package com.accenture.multibank.bank;
 
 import java.math.BigDecimal;
+import java.util.List;
 
+import org.assertj.core.util.Lists;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -103,5 +105,11 @@ public class RaiffeisenBank implements Bank {
 			((CreditAccount) account).setCreditLine(DbAccount.getCREDIT().getCREDITLINE());
 		}
 		return account;
+	}
+
+	@Override
+	public List<Account> allAccounts() {
+
+		return (List<Account>) Lists.newArrayList(accountDAO.findAll());
 	}
 }
