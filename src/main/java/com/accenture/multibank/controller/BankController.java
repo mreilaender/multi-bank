@@ -5,6 +5,7 @@ import static org.springframework.web.bind.annotation.RequestMethod.GET;
 import static org.springframework.web.bind.annotation.RequestMethod.PUT;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -13,6 +14,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.accenture.multibank.accounts.AccountReadable;
@@ -20,6 +22,7 @@ import com.accenture.multibank.accounts.AccountType;
 import com.accenture.multibank.aspect.BankSelector;
 import com.accenture.multibank.bank.Bank;
 import com.accenture.multibank.bank.RaiffeisenBank;
+import com.accenture.multibank.entities.Account;
 import com.accenture.multibank.entities.Status;
 import com.accenture.multibank.entities.Transaction;
 import com.accenture.multibank.jms.AbstractBankChooser;
@@ -45,12 +48,19 @@ public class BankController {
 	}
 
 
-	@RequestMapping(value = "/{type}", method = GET)
+	@RequestMapping(value = "/{type}", method = RequestMethod.POST)
 	public ResponseEntity<AccountReadable> createAccount(@PathVariable AccountType type) {
 		// TODO: int + Prefix = String
 		AccountReadable accountReadable = bank.createAccount(type, new BigDecimal(0));
 		return new ResponseEntity<>(accountReadable, HttpStatus.OK);
 	}
+	
+	@RequestMapping(value = "/accounts", method = GET)
+	public ResponseEntity<List<Account>> allAccounts() {
+		// TODO: int + Prefix = String
+		return new ResponseEntity<>(bank.allAccounts(), HttpStatus.OK);
+	}
+
 	@RequestMapping(method = PUT)
 	public ResponseEntity<Transaction> book(@RequestBody Transaction transaction) {
 		// public Transaction book(@RequestBody Transaction transaction) {
