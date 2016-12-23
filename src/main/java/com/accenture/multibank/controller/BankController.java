@@ -7,7 +7,10 @@ import java.math.BigDecimal;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -41,15 +44,13 @@ public class BankController {
 	}
 
 	@RequestMapping(value = "/{type}", method = GET)
-	public String createAccount(@PathVariable AccountType type) {
+	public ResponseEntity<AccountReadable> createAccount(@PathVariable AccountType type) {
 		// TODO: int + Prefix = String
-		String newAccountNr = new String();
-		newAccountNr = "bank.createAccount(type, 0).getAccountNumber()";
-		return newAccountNr;
+		AccountReadable accountReadable = bank.createAccount(type, new BigDecimal(0));
+		return new ResponseEntity<>(accountReadable, HttpStatus.OK);
 	}
-
 	@RequestMapping(method = PUT)
-	public Transaction book(Transaction transaction) {
+	public Transaction book(@RequestBody Transaction transaction) {
 
 		char prefixFrom, prefixTo;
 
